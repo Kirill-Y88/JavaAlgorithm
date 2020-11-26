@@ -6,11 +6,14 @@ public class MyArrayList<T extends Comparable<T>> {
     private T[] list;
     private int size;
     private final int DEFAULT_CAPACITY = 10;
+    private int capacity = 10;
+    public  int countAddLength;
 
     public MyArrayList(int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException("capacity: " + capacity);
         }
+        this.capacity = capacity;
         list = (T[]) new Comparable[capacity];
     }
 
@@ -21,6 +24,20 @@ public class MyArrayList<T extends Comparable<T>> {
     public void add(T item) {
         list[size] = item;
         size++;
+        if(Math.round((list.length)*0.75) < size ){
+            addLength((int) Math.round((list.length)*1.25));
+        }
+
+
+    }
+//автоматическое расширение внутреннего массива
+    public void addLength(int newLength){
+        T[] tempArray = (T[]) new Comparable[newLength];
+        for (int i = 0; i <= size; i++) {
+            tempArray[i] = list[i];
+        }
+        list = tempArray;
+        countAddLength++;
     }
 
     private void checkIndex(int index) {
@@ -120,43 +137,67 @@ public class MyArrayList<T extends Comparable<T>> {
 
     public void selectionSort(Comparator<T> comparator) {
         int iMin;
+        double countPass = 0;
+        double countMoving = 0;
         for (int i = 0; i < size - 1; i++) {
             iMin = i;
+            countPass++;
             for (int j = i + 1; j < size; j++) {
+                countPass++;
                 if (comparator.compare(list[j], list[iMin]) < 0) {
                     iMin = j;
+
                 }
             }
             swap(i, iMin);
+            countMoving++;
         }
+        System.out.println("selectionSort countPass " + countPass);
+        System.out.println("selectionSort countMoving " + countMoving);
     }
 
     public void insertionSort() {
         T key;
+        double countPass = 0;
+        double countMoving = 0;
         for (int i = 1; i < size; i++) {
             int j = i;
             key = list[i];
+            countPass++;
             while (j > 0 && less(key, list[j - 1])) {
                 list[j] = list[j - 1];
                 j--;
+                countPass++;
             }
             list[j] = key;
+            countMoving++;
         }
+        System.out.println("insertionSort countPass " + countPass);
+        System.out.println("insertionSort countMoving " + countMoving);
+
     }
 
     public void bubbleSort() {
         boolean isSwap;
+        double countPass = 0;
+        double countMoving = 0;
         for (int i = size - 1; i > 0; i--) {
             isSwap = false;
+            countPass++;
             for (int j = 0; j < i; j++) {
+                countPass++;
                 if (less(list[j + 1], list[j])) {
                     swap(j, j + 1);
+                    countMoving++;
                     isSwap = true;
                 }
             }
             if (!isSwap) {
                 System.out.println("break " + i);
+                System.out.println("bubbleSort countPass " + countPass);
+                System.out.println("bubbleSort countMoving " + countMoving);
                 break;
+
             }
         }
     }

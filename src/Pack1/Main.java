@@ -4,47 +4,41 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-//        MyArrayList<Integer> mal = new MyArrayList<>();
-//        mal.add(5);
-//        mal.add(2);
-//        mal.add(1);
-//        mal.add(3);
-//        mal.add(4);
-//        System.out.println(mal);
-
-
-//
-//        mal.add(3, 99);
-//        System.out.println(mal);
-//
-////        mal.remove((Integer) 1);
-////        System.out.println(mal);
-//
-//        System.out.println(mal.indexOf(44));
-
-
-//        MySortedArraylist<Integer> msal = new MySortedArraylist<>();
-//        msal.add(5);
-//        msal.add(2);
-//        msal.add(1);
-//        msal.add(3);
-//        msal.add(4);
-//        System.out.println(msal);
-//        System.out.println(msal.binaryFind(3));
 
         Random random = new Random();
-        MyArrayList<Integer> mal = new MyArrayList<>(20);
-        for (int i = 0; i < 10; i++) {
-            mal.add(random.nextInt(100));
+        MyArrayList<Integer> mal = new MyArrayList<>(100);  //добавил автоматическое расширение внутреннего массива
+        for (int i = 0; i < 100000; i++) {
+            mal.add(random.nextInt(1000000));
         }
 
-        System.out.println(mal);
+// Массив на миллион мой компьютер сортирует пузырьком более 10 минут, поэтому есть только 100тысяч
+        mal.bubbleSort();
+        System.out.println("countAddLength: " + mal.countAddLength);
+
+
+        MyArrayList<Integer> mal2 = new MyArrayList<>(100);
+        for (int i = 0; i < 100000; i++) {
+            mal2.add(random.nextInt(1000000));
+        }
+        mal2.selectionSort(Comparator.naturalOrder());
+        System.out.println("countAddLength: " + mal2.countAddLength);
+
+
+        MyArrayList<Integer> mal3 = new MyArrayList<>(100);
+        for (int i = 0; i < 100000; i++) {
+            mal3.add(random.nextInt(1000000));
+        }
+        mal3.insertionSort();
+        System.out.println("countAddLength: " + mal3.countAddLength);
+
+
+        //  System.out.println(mal);
 //        mal.selectionSort(Comparator.naturalOrder());
 //        mal.selectionSort(Comparator.reverseOrder());
 //        mal.selectionSort((a,b)->{return a%10 - b %10;});
-
+        // System.out.println(mal);
 //        mal.insertionSort();
-//        mal.bubbleSort();
-        System.out.println(mal);
+
+
     }
 }
