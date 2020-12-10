@@ -1,29 +1,26 @@
 package Lesson6;
 
+import java.util.Random;
 import java.util.TreeMap;
 
 public class Main {
     public static void main(String[] args) {
-        MyTreeMap<Integer, String> map = new MyTreeMap<>();
 
-        map.put(5,"five");
-        map.put(1,"one");
-        map.put(2,"two");
-        map.put(3,"three");
-        map.put(4,"four");
-        map.put(2,"two two");
+        MyTreeMap<Integer, Integer>[] mapArray = new MyTreeMap[20];
+        for (int i = 0; i < 20; i++) {
+            mapArray[i] = generateTree(6);
+            System.out.println("-------");
+            mapArray[i].info();
+        }
 
-//        System.out.println(map);
-//        System.out.println(map.get(2));
-
-//        map.deleteMin();
-        System.out.println(map);
-        System.out.println(map.size());
-
-        map.delete(5);
-        System.out.println(map);
-        System.out.println(map.size());
-
-        
     }
+    public static MyTreeMap generateTree (int n){
+        Random random = new Random();
+        MyTreeMap<Integer, Integer> map = new MyTreeMap<>();
+        while (map.height() < n ){
+            map.put( -100+ random.nextInt(200), -100+  random.nextInt(200));
+        }
+        return map;
+    }
+
 }
