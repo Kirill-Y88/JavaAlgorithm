@@ -60,6 +60,21 @@ public class ChainingHashMap<Key, Value> {
         size++;
     }
 
+    public boolean delete (Key key){
+        checkKeyNotNull(key);
+        int i = hash(key);
+        Node temp = null;
+        for (Node node : st[i]) {
+            if (key.equals(node.key)) {
+                temp = node;
+                size--;
+                break;
+            }
+        }
+           return st[i].remove(temp);
+
+    }
+
     public Value get(Key key) {
         checkKeyNotNull(key);
         int i = hash(key);
